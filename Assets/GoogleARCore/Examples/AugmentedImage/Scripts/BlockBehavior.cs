@@ -9,10 +9,21 @@ public class BlockBehavior : MonoBehaviour
 
     public void OnSelect()
     {
+        _PlaySound();
 
-        _ShowAndroidToastMessage(ImageName);
+        //_ShowAndroidToastMessage(ImageName);
     }
 
+    private void _PlaySound()
+    {
+        //AudioClip audio = Resources.Load("Sound/newBeginning", typeof(AudioClip)) as AudioClip;
+
+        AudioSource source = this.gameObject.GetComponent<AudioSource>();
+
+        source.clip = Resources.Load("Sound/newBeginning", typeof(AudioClip)) as AudioClip;
+            
+        source.Play();
+    }
 
     private void _ShowAndroidToastMessage(String message)
     {
