@@ -63,6 +63,11 @@ namespace GoogleARCore.Examples.AugmentedImage
         public GameObject FrameBlock;
 
         /// <summary>
+        /// Selector Menu
+        /// </summary>
+        public GameObject MenuSphere;
+
+        /// <summary>
         /// The Unity Update method.
         /// </summary>
         public void Update()
@@ -74,6 +79,7 @@ namespace GoogleARCore.Examples.AugmentedImage
                 FrameUpperLeft.SetActive(false);
                 FrameUpperRight.SetActive(false);
                 FrameBlock.SetActive(false);
+                MenuSphere.SetActive(false);
                 return;
             }
 
@@ -97,6 +103,11 @@ namespace GoogleARCore.Examples.AugmentedImage
             FrameUpperLeft.SetActive(true);
             FrameUpperRight.SetActive(true);
             FrameBlock.SetActive(true);
+        }
+
+        public void ShowMenu()
+        {
+            MenuSphere.SetActive(!MenuSphere.activeSelf);
         }
 
         public void TextGetter()
