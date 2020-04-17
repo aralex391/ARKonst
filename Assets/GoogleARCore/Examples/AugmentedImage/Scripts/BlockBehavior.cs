@@ -7,6 +7,17 @@ public class BlockBehavior : MonoBehaviour
 {
     public String ImageName;
 
+    AudioSource source;
+
+    private bool SoundSwitch = false;
+
+    public void Awake()
+    {
+        source = this.gameObject.GetComponent<AudioSource>();
+
+        source.clip = Resources.Load("Sound/newBeginning", typeof(AudioClip)) as AudioClip;
+    }
+
     public void OnSelect()
     {
         _PlaySound();
@@ -16,13 +27,17 @@ public class BlockBehavior : MonoBehaviour
 
     private void _PlaySound()
     {
-        //AudioClip audio = Resources.Load("Sound/newBeginning", typeof(AudioClip)) as AudioClip;
+        if (SoundSwitch == false)
+        {
+            source.Play();
 
-        AudioSource source = this.gameObject.GetComponent<AudioSource>();
+            SoundSwitch = true;
+        } else
+        {
+            source.Stop();
 
-        source.clip = Resources.Load("Sound/newBeginning", typeof(AudioClip)) as AudioClip;
-            
-        source.Play();
+            SoundSwitch = false;
+        }        
     }
 
     private void _ShowAndroidToastMessage(String message)
