@@ -63,11 +63,6 @@ namespace GoogleARCore.Examples.AugmentedImage
         public GameObject FrameBlock;
 
         /// <summary>
-        /// Selector Menu
-        /// </summary>
-        public GameObject MenuSphere;
-
-        /// <summary>
         /// The Unity Update method.
         /// </summary>
         public void Update()
@@ -79,7 +74,6 @@ namespace GoogleARCore.Examples.AugmentedImage
                 FrameUpperLeft.SetActive(false);
                 FrameUpperRight.SetActive(false);
                 FrameBlock.SetActive(false);
-                MenuSphere.SetActive(false);
                 return;
             }
 
@@ -96,7 +90,7 @@ namespace GoogleARCore.Examples.AugmentedImage
             FrameBlock.transform.localPosition =
                 (halfWidth * Vector3.right) + (halfHeight * Vector3.back);
 
-            TextGetter();
+            _textGetter();
 
             FrameLowerLeft.SetActive(true);
             FrameLowerRight.SetActive(true);
@@ -105,12 +99,11 @@ namespace GoogleARCore.Examples.AugmentedImage
             FrameBlock.SetActive(true);
         }
 
-        public void ShowMenu()
-        {
-            MenuSphere.SetActive(!MenuSphere.activeSelf);
-        }
-
-        public void TextGetter()
+        /// <summary>
+        /// Method for getting the name of the Image file and text for FrameBlockText from the 
+        /// file with the same name as the Image.
+        /// </summary>
+        private void _textGetter()
         {
             String name = Image.Name;
 

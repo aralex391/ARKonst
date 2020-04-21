@@ -7,6 +7,9 @@ public class BlockBehavior : MonoBehaviour
 {
     public String ImageName;
 
+    [SerializeField]
+    private GameObject MenuCube;
+
     AudioSource source;
 
     private bool SoundSwitch = false;
@@ -20,9 +23,16 @@ public class BlockBehavior : MonoBehaviour
 
     public void OnSelect()
     {
-        _PlaySound();
+        //_PlaySound();
 
-        //_ShowAndroidToastMessage(ImageName);
+        _Behave();
+
+        _ShowAndroidToastMessage(ImageName);
+    }
+
+    private void _Behave()
+    {
+        Instantiate(MenuCube);
     }
 
     private void _PlaySound()
