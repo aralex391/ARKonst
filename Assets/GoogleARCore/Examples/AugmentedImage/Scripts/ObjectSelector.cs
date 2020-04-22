@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSelector : MonoBehaviour
+public class ObjectSelector : MonoBehaviour
 {
     // Update is called once per frame
     void Update()
@@ -19,7 +19,7 @@ public class BlockSelector : MonoBehaviour
             if (Physics.Raycast(raycast, out raycastHit))
             {
                 GameObject hitObject = raycastHit.collider.gameObject;
-                hitObject.GetComponent<BlockBehavior>().OnSelect();
+                hitObject.GetComponent<Behavior>().OnSelect();
             }
         }
     }

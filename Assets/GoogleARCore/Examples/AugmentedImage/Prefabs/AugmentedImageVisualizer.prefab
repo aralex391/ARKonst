@@ -53,7 +53,6 @@ MonoBehaviour:
   FrameUpperLeft: {fileID: 1308591232281908}
   FrameUpperRight: {fileID: 1464705413935860}
   FrameBlock: {fileID: 329715738919408367}
-  MenuSphere: {fileID: 0}
 --- !u!1 &1182182374406134
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ImageName: 
-  TestCube: {fileID: 2122153801301053517, guid: ff091b563b48253419bfffc76739d9dc,
+  MenuCube: {fileID: 2122153801301053517, guid: ff091b563b48253419bfffc76739d9dc,
     type: 3}
 --- !u!82 &4127150543620342368
 AudioSource:
