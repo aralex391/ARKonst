@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MenuBehavior : Behavior
 {
-
     private bool holding;
 
     private Vector2 originalPosition;
@@ -16,19 +15,18 @@ public class MenuBehavior : Behavior
 
     public override void OnSelect()
     {
+        //SELECT SYSTEM NOT IN EXISTENCE
         _ShowAndroidToastMessage("Potates");
     }
 
     public void Awake()
     {
-        Transform cameraPos = Camera.main.transform;
-        float distance = 0.5f;
-        this.transform.position = cameraPos.position + cameraPos.forward * distance;
+        OnlyOne();
+        Placement();
     }
 
     void Update()
     {
-
         if (holding)
         {
             Rotate();
@@ -60,6 +58,29 @@ public class MenuBehavior : Behavior
                 holding = false;
             }
         }
+    }
+
+    public void OnlyOne()
+    {
+        // Come up with a better solution if you have one
+        var menuBehaviors = FindObjectsOfType<MenuBehavior>();
+        if (menuBehaviors.Length > 1)
+        {
+            for (int i = 0; i < menuBehaviors.Length; i++)
+            {
+                if (menuBehaviors[i].gameObject != this.gameObject)
+                {
+                    Destroy(menuBehaviors[i].gameObject);
+                }
+            }
+        }
+    }
+
+    public void Placement()
+    {
+        Transform cameraPos = Camera.main.transform;
+        float distance = 0.5f;
+        this.transform.position = cameraPos.position + cameraPos.forward * distance;
     }
 
     void Rotate()
