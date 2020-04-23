@@ -7,7 +7,7 @@ public abstract class Behavior : MonoBehaviour
 
     abstract public void OnSelect();
 
-    protected void _ShowAndroidToastMessage(string message)
+    static protected void _ShowAndroidToastMessage(string message)
     {
         AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject unityActivity =

@@ -4,9 +4,36 @@ using UnityEngine;
 
 public class MenuBehavior : Behavior
 {
+    private static GameObject _activeInstance = null;
+
     private bool holding;
 
     private Vector2 originalPosition;
+
+    public static GameObject ActiveInstance
+    {
+        get
+        {
+            if (_activeInstance == null)
+            {
+                var menuBehaviors = FindObjectsOfType<MenuBehavior>();
+                if (menuBehaviors.Length > 0)
+                {
+                    _activeInstance = menuBehaviors[0].gameObject;
+                }
+                else
+                {
+                    _ShowAndroidToastMessage("No instance of ManipulationSystem exists in the scene.");
+                }
+            }
+
+            return _activeInstance;
+        }
+        set
+        {
+            _activeInstance = value;
+        }
+    }
 
     void Start()
     {
@@ -63,16 +90,20 @@ public class MenuBehavior : Behavior
     public void OnlyOne()
     {
         // Come up with a better solution if you have one
-        var menuBehaviors = FindObjectsOfType<MenuBehavior>();
-        if (menuBehaviors.Length > 1)
+        //var menuBehaviors = FindObjectsOfType<MenuBehavior>();
+        if (ActiveInstance != this.gameObject)
         {
-            for (int i = 0; i < menuBehaviors.Length; i++)
+            _ShowAndroidToastMessage("Delete me daddy!");
+            Destroy(ActiveInstance);
+            ActiveInstance = this.gameObject;
+
+           /* for (int i = 0; i < menuBehaviors.Length; i++)
             {
                 if (menuBehaviors[i].gameObject != this.gameObject)
                 {
                     Destroy(menuBehaviors[i].gameObject);
                 }
-            }
+            }*/
         }
     }
 
