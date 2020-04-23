@@ -90,7 +90,7 @@ namespace GoogleARCore.Examples.AugmentedImage
             FrameBlock.transform.localPosition =
                 (halfWidth * Vector3.right) + (halfHeight * Vector3.back);
 
-            _textGetter();
+            _TextGetter();
 
             FrameLowerLeft.SetActive(true);
             FrameLowerRight.SetActive(true);
@@ -103,7 +103,7 @@ namespace GoogleARCore.Examples.AugmentedImage
         /// Method for getting the name of the Image file and text for FrameBlockText from the 
         /// file with the same name as the Image.
         /// </summary>
-        private void _textGetter()
+        private void _TextGetter()
         {
             String name = Image.Name;
 

@@ -10,6 +10,8 @@ public class MenuBehavior : Behavior
 
     private Vector2 originalPosition;
 
+    private bool selected;
+
     public static GameObject ActiveInstance
     {
         get
@@ -23,7 +25,7 @@ public class MenuBehavior : Behavior
                 }
                 else
                 {
-                    _ShowAndroidToastMessage("No instance of ManipulationSystem exists in the scene.");
+                    _ShowAndroidToastMessage("No instance of menuBehaviors exists in the scene.");
                 }
             }
 
@@ -35,86 +37,72 @@ public class MenuBehavior : Behavior
         }
     }
 
-    void Start()
+    public void Start()
     {
         holding = false;
+        selected = false;
     }
 
     public override void OnSelect()
     {
-        //SELECT SYSTEM NOT IN EXISTENCE
-        _ShowAndroidToastMessage("Potates");
+        selected = true;
+        _ShowAndroidToastMessage("Selected");
     }
 
     public void Awake()
     {
-        OnlyOne();
-        Placement();
+        _OnlyOne();
+        _Placement();
     }
 
-    void Update()
+    public void Update()
     {
-        if (holding)
-        {
-            Rotate();
-        }
 
-        // One finger
-        if (Input.touchCount == 1)
-        {
 
-            // Tap on Object
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+        if (selected)
+        {
+            if (holding)
             {
-                originalPosition = Input.GetTouch(0).position;
-                Ray ray = Camera.main.ScreenPointToRay(originalPosition);
-                RaycastHit hit;
+                _Rotate();
+            }
 
-                if (Physics.Raycast(ray, out hit, 100f))
+            // One finger
+            if (Input.touchCount == 1)
+            {
+
+                // Tap on Object
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    if (hit.transform == transform)
-                    {
-                        holding = true;
-                    }
+                    originalPosition = Input.GetTouch(0).position;
+                    holding = true;
+                }
+
+                // Release
+                if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    holding = false;
                 }
             }
-
-            // Release
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                holding = false;
-            }
         }
     }
 
-    public void OnlyOne()
+    private void _OnlyOne()
     {
-        // Come up with a better solution if you have one
-        //var menuBehaviors = FindObjectsOfType<MenuBehavior>();
         if (ActiveInstance != this.gameObject)
         {
-            _ShowAndroidToastMessage("Delete me daddy!");
             Destroy(ActiveInstance);
             ActiveInstance = this.gameObject;
-
-           /* for (int i = 0; i < menuBehaviors.Length; i++)
-            {
-                if (menuBehaviors[i].gameObject != this.gameObject)
-                {
-                    Destroy(menuBehaviors[i].gameObject);
-                }
-            }*/
         }
     }
 
-    public void Placement()
+    private void _Placement()
     {
         Transform cameraPos = Camera.main.transform;
         float distance = 0.5f;
         this.transform.position = cameraPos.position + cameraPos.forward * distance;
     }
 
-    void Rotate()
+    private void _Rotate()
     {
         float difference = originalPosition.x - Input.GetTouch(0).position.x;
         transform.Rotate(0f, 1.0f * difference * Time.deltaTime, 0f);
