@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public abstract class ButtonBehavior : MenuBehavior
 {
@@ -8,6 +9,6 @@ public abstract class ButtonBehavior : MenuBehavior
 
     protected void _TextSetter(string buttonText)
     {
-        this.GetComponentInChildren<TextMesh>().text = buttonText;
+        this.GetComponentInChildren<TextMeshPro>().text = buttonText;
     }
 }

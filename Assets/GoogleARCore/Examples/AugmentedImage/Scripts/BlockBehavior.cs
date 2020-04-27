@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BlockBehavior : Behavior
 {
@@ -24,6 +25,6 @@ public class BlockBehavior : Behavior
     {
         TextAsset info = Resources.Load("Text/" + ImageName) as TextAsset;
 
-        this.transform.parent.GetComponentInChildren<TextMesh>().text = info.ToString();
+        this.transform.parent.GetComponentInChildren<TextMeshPro>().text = info.ToString();
     }
 }
