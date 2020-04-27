@@ -4,8 +4,14 @@ using UnityEngine;
 
 public abstract class Behavior : MonoBehaviour
 {
+    public string ImageName;
 
     abstract public void OnSelect();
+
+    public virtual void SetName(string name)
+    {
+        ImageName = name;
+    }
 
     static protected void _ShowAndroidToastMessage(string message)
     {

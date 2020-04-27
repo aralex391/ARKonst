@@ -63,9 +63,14 @@ namespace GoogleARCore.Examples.AugmentedImage
         public GameObject FrameBlock;
 
         /// <summary>
+        /// A bool used in an if to ensure _NameSetter only activates once.
+        /// </summary>
+        private bool nameSet = false;
+
+        /// <summary>
         /// The Unity Update method.
         /// </summary>
-        public void Update()
+        void Update()
         {
             if (Image == null || Image.TrackingState != TrackingState.Tracking)
             {
@@ -90,7 +95,10 @@ namespace GoogleARCore.Examples.AugmentedImage
             FrameBlock.transform.localPosition =
                 (halfWidth * Vector3.right) + (halfHeight * Vector3.back);
 
-            _TextGetter();
+            if (!nameSet)
+            {
+                _NameSetter();
+            }
 
             FrameLowerLeft.SetActive(true);
             FrameLowerRight.SetActive(true);
@@ -103,15 +111,11 @@ namespace GoogleARCore.Examples.AugmentedImage
         /// Method for getting the name of the Image file and text for FrameBlockText from the 
         /// file with the same name as the Image.
         /// </summary>
-        private void _TextGetter()
+        private void _NameSetter()
         {
             String name = Image.Name;
 
-            TextAsset info = Resources.Load("Text/" + name) as TextAsset;
-
-            FrameBlock.transform.GetComponentInChildren<TextMesh>().text = info.ToString();
-
-            FrameBlock.transform.GetComponentInChildren<BlockBehavior>().ImageName = name;
+            FrameBlock.transform.GetComponentInChildren<BlockBehavior>().SetName(name);
         }
     }
 }

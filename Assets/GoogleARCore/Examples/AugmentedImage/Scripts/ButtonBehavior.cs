@@ -2,29 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonBehavior : Behavior
+public abstract class ButtonBehavior : MenuBehavior
 {
-    private string buttonText;
+    abstract public override void OnSelect();
 
-    void Start()
+    protected void _TextSetter(string buttonText)
     {
-        _TextSetter();
-    }
-
-    public override void OnSelect()
-    {
-        _ShowAndroidToastMessage("");
-        _Behave();
-    }
-
-    private void _Behave()
-    {
-        Destroy(this.transform.parent.gameObject);
-    }
-
-    private void _TextSetter()
-    {
-        buttonText = "Exit";
         this.GetComponentInChildren<TextMesh>().text = buttonText;
     }
 }

@@ -12,20 +12,22 @@ public class MenuBehavior : Behavior
 
     private bool selected;
 
+    new static protected string ImageName;
+
     public static GameObject ActiveInstance
     {
         get
         {
             if (_activeInstance == null)
             {
-                var menuBehaviors = FindObjectsOfType<MenuBehavior>();
-                if (menuBehaviors.Length > 0)
+                var menus = GameObject.FindGameObjectsWithTag("Menu");
+                if (menus.Length > 0)
                 {
-                    _activeInstance = menuBehaviors[0].gameObject;
+                    _activeInstance = menus[0].gameObject;
                 }
                 else
                 {
-                    _ShowAndroidToastMessage("No instance of menuBehaviors exists in the scene.");
+                    _ShowAndroidToastMessage("No instance of menu exists in the scene.");
                 }
             }
 
@@ -37,28 +39,27 @@ public class MenuBehavior : Behavior
         }
     }
 
-    public void Start()
+    void Awake()
     {
         holding = false;
         selected = false;
+
+        _OnlyOne();
+        _Placement();
     }
 
     public override void OnSelect()
     {
         selected = true;
-        _ShowAndroidToastMessage("Selected");
     }
 
-    public void Awake()
+    public override void SetName(string name)
     {
-        _OnlyOne();
-        _Placement();
+        ImageName = name;
     }
 
-    public void Update()
+    void Update()
     {
-
-
         if (selected)
         {
             if (holding)
